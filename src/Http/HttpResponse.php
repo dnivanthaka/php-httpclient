@@ -68,7 +68,7 @@ class HttpResponse
             $this->headers = stream_get_meta_data($this->stream);
             $status = explode(' ', $this->headers['wrapper_data'][0]);
 
-            $this->statusCode = $status[1];
+            $this->statusCode = (int)$status[1];
 
             foreach ($this->headers['wrapper_data'] as $header) {
                 if (stripos($header, 'Content-Type') !== false) {
@@ -77,7 +77,7 @@ class HttpResponse
                 }
             }
 
-            if ($this->statusCode != 200) {
+            if ($this->statusCode > 400) {
                 throw new HttpClientException("Incorrect response " . $status[2] . ' Code: ' . $status[1]);
             }
         } catch (Exception $e) {

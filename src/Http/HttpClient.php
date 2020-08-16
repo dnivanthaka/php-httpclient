@@ -135,8 +135,8 @@ class HttpClient
             $context_options = array(
                 'http' => array(
                     'method' => $this->method,
-                    'header' => $headers
-                        . "Content-Length: " . strlen($data) . "\r\n",
+                    'header' => $headers. 
+                    "Content-Length: " . strlen($data) . "\r\n",
                     'content' => $data
                 )
             );

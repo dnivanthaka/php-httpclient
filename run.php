@@ -5,11 +5,17 @@ use Dinusha\Http\HttpClient;
 use Dinusha\Http\HttpResponse;
 
 $client = new HttpClient();
-$client->withUri('https://www.coredna.com/assessment-endpoint.php');
+// Get token
+$client->withUri('https://www.xxxxxxx.com/assessment-endpoint.php');
 $client->withHeader('Accept', 'application/json');
-$client->withParams(['name' => 'Dinusha Amerasinghe', 'email' => 'test@test.com', 'url' => 'test.com']);
 $client->withMethod('OPTIONS');
 $response = $client->makeRequest();
-print_r($response->getResponseArray());
-echo $client;
-//$client->with
+$token = $response->getResponseArray();
+
+// Make request
+$client->withUri('https://www.xxxxx.com/assessment-endpoint.php');
+$client->withHeader('Content-Type', 'application/json');
+$client->withHeader('Authorization', 'Bearer '.$token[0]);
+$client->withParams(['name' => 'Dinusha Amerasinghe', 'email' => 'nivanthaka@gmail.com', 'url' => 'https://github.com/dnivanthaka/php-httpclient.git']);
+$client->withMethod('POST');
+$response = $client->makeRequest();
